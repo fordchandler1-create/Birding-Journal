@@ -42,14 +42,21 @@ export default function Page() {
 
   return (
     <div style={{
-      background: "#f4efe6",
       minHeight: "100vh",
       padding: 30,
       fontFamily: "Georgia, serif",
-      color: "#3b2f2f"
+      color: "#3b2f2f",
+      backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')`,
+      backgroundColor: "#f4efe6"
     }}>
 
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", position: "relative" }}>
+
+        {/* Decorative botanical corner */}
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Branch_with_leaves_and_flowers_%28PSF%29.png/320px-Branch_with_leaves_and_flowers_%28PSF%29.png"
+          style={{ position: "absolute", top: -40, left: -40, width: 120, opacity: 0.6 }}
+        />
 
         {/* Title */}
         <div style={{ textAlign: "center", marginBottom: 30 }}>
@@ -146,7 +153,7 @@ const cardStyle = {
   background: "#fffaf3",
   padding: 14,
   borderRadius: 12,
-  boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+  boxShadow: "0 6px 14px rgba(0,0,0,0.08)",
   border: "1px solid #e6dccf"
 };
 
@@ -164,7 +171,8 @@ const inputStyle = {
   padding: 10,
   borderRadius: 8,
   border: "1px solid #d8cfc2",
-  fontFamily: "inherit"
+  fontFamily: "inherit",
+  background: "#fdfaf5"
 };
 
 const btnStyle = {
