@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Page() {
-  const [entries, setEntries] = useState([]);
   const [view, setView] = useState("gallery");
 
   return (
@@ -14,11 +13,11 @@ export default function Page() {
       background: "#f4efe6"
     }}>
 
-      {/* BIG visible decorative header */}
+      {/* TOP BIRD IMAGE (WORKING) */}
       <div style={{ textAlign: "center", marginBottom: 20 }}>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/American_Goldfinch_%28Audubon%29.jpg/400px-American_Goldfinch_%28Audubon%29.jpg"
-          style={{ width: 200 }}
+          src="https://images.unsplash.com/photo-1444464666168-49d633b86797?q=80&w=800"
+          style={{ width: 200, borderRadius: 8 }}
         />
       </div>
 
@@ -28,7 +27,7 @@ export default function Page() {
         margin: "0 auto",
         background: "#fffaf3",
         padding: 30,
-        border: "4px solid #cbbfae",   // thick visible border
+        border: "4px solid #cbbfae",
         boxShadow: "0 10px 30px rgba(0,0,0,0.15)"
       }}>
 
@@ -68,11 +67,11 @@ export default function Page() {
         </div>
       </div>
 
-      {/* BIG botanical footer */}
+      {/* BOTTOM PLANT IMAGE (WORKING) */}
       <div style={{ textAlign: "center", marginTop: 30 }}>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Branch_with_leaves_and_flowers_%28PSF%29.png/400px-Branch_with_leaves_and_flowers_%28PSF%29.png"
-          style={{ width: 200 }}
+          src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=800"
+          style={{ width: 200, borderRadius: 8 }}
         />
       </div>
 
