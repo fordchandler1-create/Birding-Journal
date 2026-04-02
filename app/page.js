@@ -46,138 +46,124 @@ export default function Page() {
       padding: 30,
       fontFamily: "Georgia, serif",
       color: "#3b2f2f",
-      backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')`,
-      backgroundColor: "#f4efe6"
+      backgroundColor: "#f4efe6",
+      backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')`
     }}>
 
       <div style={{ maxWidth: 900, margin: "0 auto", position: "relative" }}>
 
-        {/* Decorative botanical corner */}
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Branch_with_leaves_and_flowers_%28PSF%29.png/320px-Branch_with_leaves_and_flowers_%28PSF%29.png"
-          style={{ position: "absolute", top: -40, left: -40, width: 120, opacity: 0.6 }}
-        />
+        {/* Decorative birds */}
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Audubon_Birds_of_America.jpg/320px-Audubon_Birds_of_America.jpg"
+          style={{ position: "absolute", top: -60, right: -40, width: 140, opacity: 0.5 }} />
 
-        {/* Title */}
-        <div style={{ textAlign: "center", marginBottom: 30 }}>
-          <h1 style={{ fontSize: 48, letterSpacing: 1 }}>
-            Field Sketchbook
-          </h1>
-          <p style={{ fontStyle: "italic", color: "#6b5e5e" }}>
-            Observations of wing and wonder
-          </p>
-        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Branch_with_leaves_and_flowers_%28PSF%29.png/320px-Branch_with_leaves_and_flowers_%28PSF%29.png"
+          style={{ position: "absolute", bottom: -60, left: -40, width: 140, opacity: 0.5 }} />
 
-        {/* Navigation */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 30 }}>
-          <button onClick={() => setView("gallery")} style={btnStyle}>Gallery</button>
-          <button onClick={() => setView("new")} style={btnStyle}>New Entry</button>
-        </div>
+        {/* Main paper card */}
+        <div style={{
+          background: "#fffaf3",
+          padding: 30,
+          borderRadius: 16,
+          border: "2px solid #d8cfc2",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+          position: "relative"
+        }}>
 
-        {/* Gallery */}
-        {view === "gallery" && (
+          {/* Inner border */}
           <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px,1fr))",
-            gap: 24
-          }}>
+            position: "absolute",
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: 10,
+            border: "1px solid #e6dccf",
+            borderRadius: 12,
+            pointerEvents: "none"
+          }} />
 
-            {entries.length === 0 && (
-              <p style={{ gridColumn: "1/-1", textAlign: "center", fontStyle: "italic" }}>
-                Your sketchbook is empty… begin with your first bird.
-              </p>
-            )}
+          {/* Title */}
+          <div style={{ textAlign: "center", marginBottom: 30 }}>
+            <h1 style={{ fontSize: 48 }}>Field Sketchbook</h1>
+            <p style={{ fontStyle: "italic", color: "#6b5e5e" }}>
+              Observations of wing and wonder
+            </p>
+          </div>
 
-            {entries.map((entry) => (
-              <div key={entry.id} style={cardStyle}>
+          {/* Nav */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 30 }}>
+            <button onClick={() => setView("gallery")} style={btnStyle}>Gallery</button>
+            <button onClick={() => setView("new")} style={btnStyle}>New Entry</button>
+          </div>
 
-                {entry.image && (
-                  <img
-                    src={entry.image}
-                    alt={entry.species}
-                    style={{
-                      width: "100%",
-                      height: 150,
-                      objectFit: "cover",
-                      borderRadius: 8,
-                      marginBottom: 10
-                    }}
-                  />
-                )}
+          {/* Gallery */}
+          {view === "gallery" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px,1fr))", gap: 24 }}>
 
-                <h3 style={{ fontStyle: "italic", marginBottom: 4 }}>
-                  {entry.species}
-                </h3>
-
-                <p style={{ fontSize: 12, color: "#6b5e5e" }}>
-                  {entry.location}
+              {entries.length === 0 && (
+                <p style={{ gridColumn: "1/-1", textAlign: "center", fontStyle: "italic" }}>
+                  Your sketchbook is empty… begin with your first bird.
                 </p>
+              )}
 
-                <p style={{ fontSize: 12 }}>{entry.date}</p>
+              {entries.map((entry) => (
+                <div key={entry.id} style={cardStyle}>
 
-                <button onClick={() => deleteEntry(entry.id)} style={deleteBtn}>
-                  Remove
-                </button>
+                  {entry.image && (
+                    <img src={entry.image} style={{ width: "100%", height: 150, objectFit: "cover", borderRadius: 6 }} />
+                  )}
 
-              </div>
-            ))}
-          </div>
-        )}
+                  <h3 style={{ fontStyle: "italic" }}>{entry.species}</h3>
+                  <p style={{ fontSize: 12 }}>{entry.location}</p>
 
-        {/* New Entry */}
-        {view === "new" && (
-          <div style={formStyle}>
+                  <button onClick={() => deleteEntry(entry.id)} style={deleteBtn}>Remove</button>
 
-            <input name="species" placeholder="Species" value={form.species} onChange={handleChange} style={inputStyle} />
-            <input name="location" placeholder="Location" value={form.location} onChange={handleChange} style={inputStyle} />
-            <input type="date" name="date" value={form.date} onChange={handleChange} style={inputStyle} />
-            <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} style={inputStyle} />
+                </div>
+              ))}
+            </div>
+          )}
 
-            <textarea name="notes" placeholder="Field notes..." value={form.notes} onChange={handleChange} style={{ ...inputStyle, height: 100 }} />
+          {/* Form */}
+          {view === "new" && (
+            <div style={formStyle}>
+              <input name="species" placeholder="Species" value={form.species} onChange={handleChange} style={inputStyle} />
+              <input name="location" placeholder="Location" value={form.location} onChange={handleChange} style={inputStyle} />
+              <input type="date" name="date" value={form.date} onChange={handleChange} style={inputStyle} />
+              <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} style={inputStyle} />
+              <textarea name="notes" placeholder="Field notes..." value={form.notes} onChange={handleChange} style={{ ...inputStyle, height: 100 }} />
+              <button onClick={addEntry} style={btnStyle}>Add to Sketchbook</button>
+            </div>
+          )}
 
-            <button onClick={addEntry} style={btnStyle}>
-              Add to Sketchbook
-            </button>
-
-          </div>
-        )}
+        </div>
 
       </div>
     </div>
   );
 }
 
-/* Styles */
-
 const cardStyle = {
-  background: "#fffaf3",
-  padding: 14,
-  borderRadius: 12,
-  boxShadow: "0 6px 14px rgba(0,0,0,0.08)",
-  border: "1px solid #e6dccf"
+  background: "#fdfaf5",
+  padding: 12,
+  borderRadius: 10,
+  border: "1px solid #e6dccf",
 };
 
 const formStyle = {
-  background: "#fffaf3",
-  padding: 20,
-  borderRadius: 12,
   display: "flex",
   flexDirection: "column",
-  gap: 10,
-  border: "1px solid #e6dccf"
+  gap: 10
 };
 
 const inputStyle = {
   padding: 10,
-  borderRadius: 8,
+  borderRadius: 6,
   border: "1px solid #d8cfc2",
-  fontFamily: "inherit",
-  background: "#fdfaf5"
+  background: "#fff"
 };
 
 const btnStyle = {
-  padding: "10px 16px",
-  borderRadius: 10,
+  padding: "10px 14px",
+  borderRadius: 8,
   border: "none",
   background: "#7a8f63",
   color: "white",
@@ -185,7 +171,7 @@ const btnStyle = {
 };
 
 const deleteBtn = {
-  marginTop: 8,
+  marginTop: 6,
   background: "transparent",
   border: "none",
   color: "#a44",
