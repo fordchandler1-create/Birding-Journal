@@ -25,19 +25,25 @@ export default function Page() {
     localStorage.setItem("birds", JSON.stringify(entries));
   }, [entries]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const addEntry = () => {
     if (!form.species) return;
     setEntries([{ ...form, id: Date.now() }, ...entries]);
-    setForm({ species: "", location: "", notes: "", date: "", image: "" });
+    setForm({
+      species: "",
+      location: "",
+      notes: "",
+      date: "",
+      image: "",
+    });
     setView("gallery");
   };
 
-  const deleteEntry = (id: number) => {
-    setEntries(entries.filter((e: any) => e.id !== id));
+  const deleteEntry = (id) => {
+    setEntries(entries.filter((e) => e.id !== id));
   };
 
   return (
@@ -55,20 +61,28 @@ export default function Page() {
         </div>
 
         {view === "gallery" && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px,1fr))", gap: 20 }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px,1fr))",
+            gap: 20
+          }}>
             {entries.length === 0 && (
               <p style={{ gridColumn: "1/-1", textAlign: "center" }}>
                 Your sketchbook is empty…
               </p>
             )}
 
-            {entries.map((entry: any) => (
-              <div key={entry.id}>
+            {entries.map((entry) => (
+              <div key={entry.id} style={{ background: "#fffaf3", padding: 10, borderRadius: 10 }}>
                 {entry.image && (
-                  <img src={entry.image} style={{ width: "100%", height: 140, objectFit: "cover" }} />
+                  <img
+                    src={entry.image}
+                    alt={entry.species}
+                    style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 6 }}
+                  />
                 )}
                 <h3 style={{ fontStyle: "italic" }}>{entry.species}</h3>
-                <p>{entry.location}</p>
+                <p style={{ fontSize: 12 }}>{entry.location}</p>
                 <button onClick={() => deleteEntry(entry.id)}>Remove</button>
               </div>
             ))}
@@ -76,12 +90,42 @@ export default function Page() {
         )}
 
         {view === "new" && (
-          <div>
-            <input name="species" placeholder="Species" value={form.species} onChange={handleChange} /><br /><br />
-            <input name="location" placeholder="Location" value={form.location} onChange={handleChange} /><br /><br />
-            <input type="date" name="date" value={form.date} onChange={handleChange} /><br /><br />
-            <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} /><br /><br />
-            <textarea name="notes" placeholder="Notes" value={form.notes} onChange={handleChange} /><br /><br />
+          <div style={{ background: "#fffaf3", padding: 20, borderRadius: 10 }}>
+            <input
+              name="species"
+              placeholder="Species"
+              value={form.species}
+              onChange={handleChange}
+            /><br /><br />
+
+            <input
+              name="location"
+              placeholder="Location"
+              value={form.location}
+              onChange={handleChange}
+            /><br /><br />
+
+            <input
+              type="date"
+              name="date"
+              value={form.date}
+              onChange={handleChange}
+            /><br /><br />
+
+            <input
+              name="image"
+              placeholder="Image URL"
+              value={form.image}
+              onChange={handleChange}
+            /><br /><br />
+
+            <textarea
+              name="notes"
+              placeholder="Notes"
+              value={form.notes}
+              onChange={handleChange}
+            /><br /><br />
+
             <button onClick={addEntry}>Add Entry</button>
           </div>
         )}
