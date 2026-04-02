@@ -32,13 +32,7 @@ export default function Page() {
   const addEntry = () => {
     if (!form.species) return;
     setEntries([{ ...form, id: Date.now() }, ...entries]);
-    setForm({
-      species: "",
-      location: "",
-      notes: "",
-      date: "",
-      image: "",
-    });
+    setForm({ species: "", location: "", notes: "", date: "", image: "" });
     setView("gallery");
   };
 
@@ -47,86 +41,97 @@ export default function Page() {
   };
 
   return (
-    <div style={{ background: "#f6f1e7", minHeight: "100vh", padding: 20, fontFamily: "serif" }}>
+    <div style={{
+      background: "#f4efe6",
+      minHeight: "100vh",
+      padding: 30,
+      fontFamily: "Georgia, serif",
+      color: "#3b2f2f"
+    }}>
+
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
 
-        <h1 style={{ textAlign: "center", fontSize: 42 }}>Field Sketchbook</h1>
-        <p style={{ textAlign: "center", fontStyle: "italic" }}>
-          Observations of wing and wonder
-        </p>
-
-        <div style={{ display: "flex", justifyContent: "center", gap: 10, margin: 20 }}>
-          <button onClick={() => setView("gallery")}>Gallery</button>
-          <button onClick={() => setView("new")}>New Entry</button>
+        {/* Title */}
+        <div style={{ textAlign: "center", marginBottom: 30 }}>
+          <h1 style={{ fontSize: 48, letterSpacing: 1 }}>
+            Field Sketchbook
+          </h1>
+          <p style={{ fontStyle: "italic", color: "#6b5e5e" }}>
+            Observations of wing and wonder
+          </p>
         </div>
 
+        {/* Navigation */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 30 }}>
+          <button onClick={() => setView("gallery")} style={btnStyle}>Gallery</button>
+          <button onClick={() => setView("new")} style={btnStyle}>New Entry</button>
+        </div>
+
+        {/* Gallery */}
         {view === "gallery" && (
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px,1fr))",
-            gap: 20
+            gridTemplateColumns: "repeat(auto-fill, minmax(220px,1fr))",
+            gap: 24
           }}>
+
             {entries.length === 0 && (
-              <p style={{ gridColumn: "1/-1", textAlign: "center" }}>
-                Your sketchbook is empty…
+              <p style={{ gridColumn: "1/-1", textAlign: "center", fontStyle: "italic" }}>
+                Your sketchbook is empty… begin with your first bird.
               </p>
             )}
 
             {entries.map((entry) => (
-              <div key={entry.id} style={{ background: "#fffaf3", padding: 10, borderRadius: 10 }}>
+              <div key={entry.id} style={cardStyle}>
+
                 {entry.image && (
                   <img
                     src={entry.image}
                     alt={entry.species}
-                    style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 6 }}
+                    style={{
+                      width: "100%",
+                      height: 150,
+                      objectFit: "cover",
+                      borderRadius: 8,
+                      marginBottom: 10
+                    }}
                   />
                 )}
-                <h3 style={{ fontStyle: "italic" }}>{entry.species}</h3>
-                <p style={{ fontSize: 12 }}>{entry.location}</p>
-                <button onClick={() => deleteEntry(entry.id)}>Remove</button>
+
+                <h3 style={{ fontStyle: "italic", marginBottom: 4 }}>
+                  {entry.species}
+                </h3>
+
+                <p style={{ fontSize: 12, color: "#6b5e5e" }}>
+                  {entry.location}
+                </p>
+
+                <p style={{ fontSize: 12 }}>{entry.date}</p>
+
+                <button onClick={() => deleteEntry(entry.id)} style={deleteBtn}>
+                  Remove
+                </button>
+
               </div>
             ))}
           </div>
         )}
 
+        {/* New Entry */}
         {view === "new" && (
-          <div style={{ background: "#fffaf3", padding: 20, borderRadius: 10 }}>
-            <input
-              name="species"
-              placeholder="Species"
-              value={form.species}
-              onChange={handleChange}
-            /><br /><br />
+          <div style={formStyle}>
 
-            <input
-              name="location"
-              placeholder="Location"
-              value={form.location}
-              onChange={handleChange}
-            /><br /><br />
+            <input name="species" placeholder="Species" value={form.species} onChange={handleChange} style={inputStyle} />
+            <input name="location" placeholder="Location" value={form.location} onChange={handleChange} style={inputStyle} />
+            <input type="date" name="date" value={form.date} onChange={handleChange} style={inputStyle} />
+            <input name="image" placeholder="Image URL" value={form.image} onChange={handleChange} style={inputStyle} />
 
-            <input
-              type="date"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
-            /><br /><br />
+            <textarea name="notes" placeholder="Field notes..." value={form.notes} onChange={handleChange} style={{ ...inputStyle, height: 100 }} />
 
-            <input
-              name="image"
-              placeholder="Image URL"
-              value={form.image}
-              onChange={handleChange}
-            /><br /><br />
+            <button onClick={addEntry} style={btnStyle}>
+              Add to Sketchbook
+            </button>
 
-            <textarea
-              name="notes"
-              placeholder="Notes"
-              value={form.notes}
-              onChange={handleChange}
-            /><br /><br />
-
-            <button onClick={addEntry}>Add Entry</button>
           </div>
         )}
 
@@ -134,3 +139,47 @@ export default function Page() {
     </div>
   );
 }
+
+/* Styles */
+
+const cardStyle = {
+  background: "#fffaf3",
+  padding: 14,
+  borderRadius: 12,
+  boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+  border: "1px solid #e6dccf"
+};
+
+const formStyle = {
+  background: "#fffaf3",
+  padding: 20,
+  borderRadius: 12,
+  display: "flex",
+  flexDirection: "column",
+  gap: 10,
+  border: "1px solid #e6dccf"
+};
+
+const inputStyle = {
+  padding: 10,
+  borderRadius: 8,
+  border: "1px solid #d8cfc2",
+  fontFamily: "inherit"
+};
+
+const btnStyle = {
+  padding: "10px 16px",
+  borderRadius: 10,
+  border: "none",
+  background: "#7a8f63",
+  color: "white",
+  cursor: "pointer"
+};
+
+const deleteBtn = {
+  marginTop: 8,
+  background: "transparent",
+  border: "none",
+  color: "#a44",
+  cursor: "pointer"
+};
